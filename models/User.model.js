@@ -16,7 +16,7 @@ const userSchema = new Schema({
   },
   avatar: {
     type: String,
-    default: "https://pngset.com/images/icono-de-mi-cuenta-clipart-download-default-profile-picture-footprint-transparent-png-306148.png"
+    default: "https://res.cloudinary.com/dz29bpftp/image/upload/v1653059218/Club-Tomy/userProfile_ssiijx.png"
   },
   profile: {
     type: String,
