@@ -10,6 +10,7 @@ const Session = require("../models/Session.model");
 
 const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
+const Badge = require("../models/Badge.model");
 
 router.get("/session", (req, res) => {
   if (!req.headers.authorization) {
@@ -18,7 +19,13 @@ router.get("/session", (req, res) => {
   const accessToken = req.headers.authorization;
 
   Session.findById(accessToken)
-    .populate("user")
+    .populate({path:"user",
+    model:"User",
+    populate:{
+      path:"badge",
+      model:"Badge",
+    }
+    })
     .then((session) => {
       if (!session) {
         return res.status(404).json({ errorMessage: "Session does not exist" });

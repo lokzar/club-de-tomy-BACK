@@ -15,12 +15,11 @@ const purchaseSchema = new Schema({
     total: Number,
 
     isPending:Boolean,
-    
+
 }, {
     timestamps: true,
 });
 
 
 const Purchase = model("Purchase", purchaseSchema);
-
 module.exports = Purchase;
