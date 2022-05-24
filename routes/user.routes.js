@@ -20,4 +20,11 @@ router.post('/user/create',(req,res)=>{
 })
 
 
+//actualizar Saldo
+
+router.put('/user/:userId'),(req,res)=>{
+    
+    User.findByIdAndUpdate(userId)
+}
+
 module.exports = router;

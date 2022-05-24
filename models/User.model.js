@@ -30,7 +30,11 @@ const userSchema = new Schema({
   purchase:[{
     type:Schema.Types.ObjectId,
     ref:"Purchase"
-  }]
+  }],
+  balance:{
+    type:Number,
+    default: 0,
+  }
 
 }, {
   timestamps: true,
