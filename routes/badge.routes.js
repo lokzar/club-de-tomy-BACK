@@ -55,7 +55,7 @@ Badge.findById(req.body._id)
 .catch(err=>res.json(err))
 })
 
-//eliminar insignias
+//eliminar insignias del Usuario
 router.put('/badge/delete/:userId', (req,res)=>{  
     Badge.findById(req.body._id)
     .then(findedBadge=>{

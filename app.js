@@ -22,11 +22,11 @@ app.use("/api", allRoutes);
 const badgeRoutes=require("./routes/badge.routes");
 app.use("/api", badgeRoutes)
 
-const productRoutes=require("./routes/product.routes");
-app.use("/api", productRoutes)
-
 const userRoutes=require("./routes/user.routes");
 app.use("/api", userRoutes)
+
+const purchaseRoutes=require("./routes/purchase.routes");
+app.use("/api", purchaseRoutes)
 
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes

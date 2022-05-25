@@ -12,10 +12,18 @@ const purchaseSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "User"
     },
-    total: Number,
-
-    isPending:Boolean,
-
+    total: {
+        type: Number,
+        default: 0
+    },
+    isPending: {
+        type:Boolean,
+        default:true
+    },
+    isOpen: {
+        type:Boolean,
+        default:true
+    }
 }, {
     timestamps: true,
 });

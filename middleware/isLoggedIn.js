@@ -12,7 +12,7 @@ module.exports = (req, res, next) => {
       if (!session) {
         return res
           .status(404)
-          .json({ errorMessage: "No session started for this user" });
+          .json({ errorMessage: "No existe sesión iniciada con este usuario" });
       }
       // makes the user available in `req.user` from now onwards
       req.user = session.user;
