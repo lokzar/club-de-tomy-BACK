@@ -44,7 +44,18 @@ router.post('/purchase/create', (req, res) => {
         .catch(err => res.json(err))
 })
 
-//buscar compras
+//buscar todas las compras
+router.get("/purchase/all", (req, res) => {
+    Purchase
+        .find()
+        .populate("product")
+        .then(openPurchase => {
+            res.json(openPurchase)
+        })
+        .catch((err) => console.log(err))
+})
+
+//buscar compras abiertas
 router.get("/purchase/list", (req, res) => {
     Purchase
         .find({isOpen:true})
@@ -54,6 +65,19 @@ router.get("/purchase/list", (req, res) => {
         })
         .catch((err) => console.log(err))
 })
+
+//buscar compras cerradas
+router.get("/purchase/listClose", (req, res) => {
+    Purchase
+        .find({isOpen:false})
+        .populate("product")
+        .then(openPurchase => {
+            res.json(openPurchase)
+        })
+        .catch((err) => console.log(err))
+})
+
+
 
 //asignar productos a compra
 router.put('/purchase/asignProducts', (req, res) => {
@@ -109,6 +133,44 @@ router.put('/purchase/unasignProducts', (req, res) => {
         })
         .catch(err => res.json(err))
 })
+
+//desasgnar valor del producto a total
+router.put('/purchase/totalDiscount', (req, res) => {
+    Product
+        .findById(req.body._id)
+        .then(findedProduct => {
+            const {purchaseId} = req.body
+            const {total} = req.body
+            return Purchase.findByIdAndUpdate(purchaseId, {
+                total: total - findedProduct.price
+            }, {new: true})
+        })
+        .then((updatedPurchase) => {
+            res.json(updatedPurchase)
+        })
+        .catch(err => res.json(err))
+})
+
+//cambiar estatus de compra a cerrada
+router.put('/purchase/closed', (req,res) => {
+    Purchase
+    .findByIdAndUpdate(req.body._id,{isOpen:false},{new:true})
+    .then(closedPurchase=>{
+        const{balance}=req.body
+        return User.findByIdAndUpdate(closedPurchase.user._id,{
+                    balance: balance - closedPurchase.total
+                },{new:true})
+    })
+    .then((newUserBalance)=>{
+        res.json(newUserBalance)
+    })
+    .catch(err=>res.json(err))
+})
+
+
+
+
+
 
 //desasignar compra de usuario
 router.put('/purchase/unasignPurchase', (req, res) => {
