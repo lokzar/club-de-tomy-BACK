@@ -31,6 +31,10 @@ router.get("/session", (req, res) => {
     populate:{
       path:"purchase",
       model:"Purchase",
+      populate:{
+        path:"product",
+        model:"Product"
+      }
     }
     })
     .then((session) => {
@@ -107,6 +111,7 @@ router.post("/login", isLoggedOut, (req, res, next) => {
   }
 
   User.findOne({ username })
+    .populate("badge")
     .then((user) => {
       if (!user) {
         return res.status(400).json({ errorMessage: "El usuario no existe" });
