@@ -39,7 +39,7 @@ router.post('/purchase/create', (req, res) => {
             }, {new: true})
         })
         .then((updatedUser) => {
-            console.log(updatedUser)
+            console.log("")
         })
         .catch(err => res.json(err))
 })
@@ -156,13 +156,14 @@ router.put('/purchase/closed', (req,res) => {
     Purchase
     .findByIdAndUpdate(req.body._id,{isOpen:false},{new:true})
     .then(closedPurchase=>{
+        res.json(closedPurchase)
         const{balance}=req.body
         return User.findByIdAndUpdate(closedPurchase.user._id,{
                     balance: balance - closedPurchase.total
                 },{new:true})
     })
     .then((newUserBalance)=>{
-        res.json(newUserBalance)
+        console.log("")
     })
     .catch(err=>res.json(err))
 })
