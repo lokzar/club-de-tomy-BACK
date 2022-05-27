@@ -112,6 +112,7 @@ router.post("/login", isLoggedOut, (req, res, next) => {
 
   User.findOne({ username })
     .populate("badge")
+    .populate("purchase")
     .then((user) => {
       if (!user) {
         return res.status(400).json({ errorMessage: "El usuario no existe" });
